@@ -1,0 +1,6 @@
+public/assets/
+protected/runtime/
+.idea/
+protected/config/database.php
+protected/config/log.php
+dependencies/
