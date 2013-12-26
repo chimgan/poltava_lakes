@@ -23,6 +23,7 @@ class Controller extends CController
 
     public function init()
     {
+        $this->menu = require Yii::getPathOfAlias('application.config') . DIRECTORY_SEPARATOR . 'menu.php';
         parent::init();
     }
 }

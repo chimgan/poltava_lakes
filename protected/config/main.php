@@ -13,7 +13,7 @@ return [
     'sourceLanguage' => 'ru',
     'language' => 'en',
     'timeZone' => 'Europe/Moscow',
-    'homeUrl' => 'admin/index/index',
+    'homeUrl' => 'site/index',
 
     // preloading component
     'preload' => [

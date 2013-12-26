@@ -62,15 +62,6 @@ class IndexController extends AdminController
     public function actionLogout()
     {
         Yii::app()->user->logout();
-        $this->redirect(Yii::app()->homeUrl);
-    }
-
-    public function actionClearCache()
-    {
-        // Load all tables of the application in the schema
-        Yii::app()->db->schema->getTables();
-        // clear the cache of all loaded tables
-        Yii::app()->db->schema->refresh();
-        $this->redirect('index');
+        $this->redirect('admin/index/index');
     }
 }

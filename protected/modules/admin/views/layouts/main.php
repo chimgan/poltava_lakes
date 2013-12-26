@@ -9,7 +9,7 @@
     <?php
         $baseUrl = Yii::app()->baseUrl;
         $cs = Yii::app()->getClientScript();
-        $cs->registerScriptFile($baseUrl.'/js/main.js');
+        $cs->registerScriptFile($baseUrl.'/js/admin_main.js');
         $cs->registerCssFile($baseUrl.'/css/admin.css');
     ?>
 </head>
