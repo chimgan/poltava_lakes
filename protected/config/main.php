@@ -78,5 +78,11 @@ return [
         'domainUrl' => 'http://poltava-lakes.local',
         'allowedExts' => ["gif", "jpeg", "jpg", "png"],
         'max_upload_file_size' => 2120000, // 2Mb
+
+        // Google maps optional settings
+        'editZoom' => 12,
+        'pickZoom' => 7,
+        'defaultLatitude' => 50.443513052458044,
+        'defaultLongitude' => 30.498046875,
     ],
 ];

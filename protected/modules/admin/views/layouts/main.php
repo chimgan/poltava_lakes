@@ -40,18 +40,21 @@
             ]);
             ?>
         </div><!-- mainmenu -->
-        <br /><br />
+        <br />
         <?php if(isset($this->breadcrumbs)):?>
-            <?php $this->widget('zii.widgets.CBreadcrumbs', [
-                'links' => $this->breadcrumbs,
-                'homeLink' => CHtml::link('Main', ['/admin']),
-            ]); ?><!-- breadcrumbs -->
+            <?php $this->widget(
+                'bootstrap.widgets.TbBreadcrumbs',
+                array(
+                    'links' => $this->breadcrumbs,
+                    'homeLink' => CHtml::link('Главная', ['/admin']),
+                )
+            ); ?><!-- breadcrumbs -->
         <?php endif?>
 
         <?php echo $content; ?>
 
         <div class="clear"></div>
-
+        <br />
         <div class="modal-footer">
             Copyright &copy; <?php echo date('Y'); ?> by Poltava Likes.<br/>
             All Rights Reserved.<br/>

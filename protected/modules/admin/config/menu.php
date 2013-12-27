@@ -17,6 +17,10 @@ if (Yii::app()->user->isGuest) {
             'url' => ['/admin/lakes/index'],
         ],
         [
+            'label' => 'Типы водных ресурсов',
+            'url' => ['/admin/waterObject/admin'],
+        ],
+        [
             'label' => 'Выйти из аккаунта (' . Yii::app()->user->name . ')',
             'url' => ['/admin/index/logout'],
         ],

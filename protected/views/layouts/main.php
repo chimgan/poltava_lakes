@@ -9,6 +9,7 @@
         $baseUrl = Yii::app()->baseUrl;
         $cs = Yii::app()->getClientScript();
         $cs->registerScriptFile($baseUrl.'/js/main.js');
+        $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.imagemapster.min.js');
         $cs->registerCssFile($baseUrl.'/css/main.css');
     ?>
 
