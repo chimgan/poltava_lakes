@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'region':
  * @property integer $id
+ * @property integer $root_id
  * @property string $title
  * @property string $create_date
  *
@@ -30,10 +31,11 @@ class Region extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, create_date', 'required'),
+			array('root_id', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, create_date', 'safe', 'on'=>'search'),
+			array('id, root_id, title, create_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +58,7 @@ class Region extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'root_id' => 'Root',
 			'title' => 'Title',
 			'create_date' => 'Create Date',
 		);
@@ -80,6 +83,7 @@ class Region extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('root_id',$this->root_id);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('create_date',$this->create_date,true);
 

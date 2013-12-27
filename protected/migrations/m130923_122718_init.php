@@ -7,6 +7,7 @@ class m130923_122718_init extends CDbMigration
         $this->execute('
             CREATE TABLE `region` (
                 id INT NOT NULL AUTO_INCREMENT,
+                root_id INT NULL,
                 title VARCHAR(100) NOT NULL,
                 create_date TIMESTAMP NOT NULL,
                 PRIMARY KEY (id)
