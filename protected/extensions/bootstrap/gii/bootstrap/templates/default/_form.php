@@ -4,10 +4,10 @@
  * - $this: the BootCrudCode object
  */
 ?>
-<?php echo "<?php \$form=\$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-	'id'=>'" . $this->class2id($this->modelClass) . "-form',
-	'enableAjaxValidation'=>false,
-)); ?>\n"; ?>
+<?php echo "<?php \$form = \$this->beginWidget('bootstrap.widgets.TbActiveForm', [
+	'id' => '" . $this->class2id($this->modelClass) . "-form',
+	'enableAjaxValidation' => false,
+]); ?>\n"; ?>
 
 <p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
@@ -19,17 +19,17 @@ foreach ($this->tableSchema->columns as $column) {
 		continue;
 	}
 	?>
-	<?php echo "<?php echo " . $this->generateActiveRow($this->modelClass, $column) . "; ?>\n"; ?>
+    <?php echo "<?php echo " . $this->generateActiveRow($this->modelClass, $column) . "; ?>\n"; ?>
 
 <?php
 }
 ?>
 <div class="form-actions">
-	<?php echo "<?php \$this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>\$model->isNewRecord ? 'Create' : 'Save',
-		)); ?>\n"; ?>
+	<?php echo "<?php \$this->widget('bootstrap.widgets.TbButton', [
+			'buttonType' => 'submit',
+			'type' => 'primary',
+			'label' => \$model->isNewRecord ? 'Create' : 'Save',
+		]); ?>\n"; ?>
 </div>
 
 <?php echo "<?php \$this->endWidget(); ?>\n"; ?>

@@ -36,7 +36,7 @@ class RegionController extends AdminController
 
         if (isset($_POST['Region'])) {
 
-            $model->attributes=$_POST['Region'];
+            $model->attributes = $_POST['Region'];
 
             if ($model->save()) {
 
@@ -61,6 +61,7 @@ class RegionController extends AdminController
         if (isset($_POST['Region'])) {
 
             $model->attributes = $_POST['Region'];
+
             if ($model->save()) {
 
                 $this->redirect(['view','id' => $model->id]);
@@ -113,5 +114,4 @@ class RegionController extends AdminController
           'model' => $model,
         ]);
     }
-
 }
