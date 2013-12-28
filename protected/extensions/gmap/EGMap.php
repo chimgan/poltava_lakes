@@ -14,7 +14,7 @@
  * 
  * @author Antonio Ramirez Cobos
  * @link http://www.ramirezcobos.com
- * 
+ *
  * @copyright 
  * info as this library is a modified version of Fabrice Bernhard 
  * 
@@ -33,6 +33,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
+ * http://www.yiiframework.com/extension/egmap/
  */
 class EGMap extends EGMapBase {
 	// This map type displays a normal street map.

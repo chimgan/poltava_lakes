@@ -53,7 +53,7 @@ class m130923_122718_init extends CDbMigration
         ');
 
         $this->execute("
-            INSERT INTO `region` (`id`, `title`, `create_date`)
+            INSERT INTO `water_object` (`id`, `title`, `create_date`)
             VALUES (1, 'Водохранилище', CURRENT_TIMESTAMP),
                    (2, 'Источник',      CURRENT_TIMESTAMP),
                    (3, 'Озеро',         CURRENT_TIMESTAMP),
@@ -77,6 +77,10 @@ class m130923_122718_init extends CDbMigration
                 FOREIGN KEY (water_object_id) REFERENCES `water_object`(id) ON DELETE CASCADE
             ) ENGINE=InnoDB;
         ');
+        $this->execute("
+            INSERT INTO `lake` (`id`, `water_object_id`, `region_id`, `title`, `description`, `lat`, `long`, `area`, `rent`, `create_date`)
+            VALUES (1, 1, 1, 'Хрен его знанск', 'Проверка правильности вывода водного объекта на карте', '50.11166201722939', '33.15244674682617', '3', 0, CURRENT_TIMESTAMP);
+        ");
 
         $this->execute('
             CREATE TABLE `photo` (
@@ -89,7 +93,6 @@ class m130923_122718_init extends CDbMigration
             ) ENGINE=InnoDB;
         ');
         $this->execute('CREATE INDEX `photo_lake_id_index` ON `photo`(`lake_id`)');
-
     }
 
     public function down()

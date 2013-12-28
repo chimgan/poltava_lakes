@@ -106,10 +106,14 @@ class Lake extends CActiveRecord
 		$criteria->compare('area', $this->area, true);
 		$criteria->compare('rent', $this->rent);
 		$criteria->compare('create_date', $this->create_date, true);
+        $criteria->order = 'id DESC';
 
-		return new CActiveDataProvider($this, [
-			'criteria' => $criteria,
-		]);
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
+        ]);
 	}
 
 	/**

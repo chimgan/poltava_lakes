@@ -83,9 +83,13 @@ class Region extends CActiveRecord
 		$criteria->compare('root_id', $this->root_id);
 		$criteria->compare('title', $this->title, true);
 		$criteria->compare('create_date', $this->create_date, true);
+        $criteria->order = 'id DESC';
 
 		return new CActiveDataProvider($this, [
 			'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
 		]);
 	}
 

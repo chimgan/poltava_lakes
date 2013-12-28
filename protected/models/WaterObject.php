@@ -76,10 +76,14 @@ class WaterObject extends CActiveRecord
 		$criteria->compare('id', $this->id);
 		$criteria->compare('title', $this->title, true);
 		$criteria->compare('create_date', $this->create_date, true);
+        $criteria->order = 'id DESC';
 
-		return new CActiveDataProvider($this, [
-			'criteria' => $criteria,
-		]);
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
+        ]);
 	}
 
 	/**

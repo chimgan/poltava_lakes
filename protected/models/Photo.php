@@ -82,10 +82,14 @@ class Photo extends CActiveRecord
 		$criteria->compare('lake_id', $this->lake_id);
 		$criteria->compare('source', $this->source, true);
 		$criteria->compare('create_date', $this->create_date, true);
+        $criteria->order = 'id DESC';
 
-		return new CActiveDataProvider($this, [
-			'criteria' => $criteria,
-		]);
+        return new CActiveDataProvider($this, [
+            'criteria' => $criteria,
+            'pagination' => [
+                'pageSize' => 100,
+            ],
+        ]);
 	}
 
 	/**
