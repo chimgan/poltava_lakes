@@ -11,18 +11,18 @@ $this->pageTitle = Yii::app()->name;
     )
 ); ?>
 
-<p>м. Полтава, вул. За Рудкою, 35,
-    +380 (352) 52-64-22
-    water@poltavasp.te.ua</p>
+    <p>м. Полтава, вул. За Рудкою, 35,
+        +380 (352) 52-64-22
+        water@poltavasp.te.ua</p>
 
-<p><?php $this->widget(
-        'bootstrap.widgets.TbButton',
-        array(
-            'type' => 'primary',
-            'size' => 'large',
-            'label' => 'Узнать больше',
-        )
-    ); ?></p>
+    <p><?php $this->widget(
+            'bootstrap.widgets.TbButton',
+            array(
+                'type' => 'primary',
+                'size' => 'large',
+                'label' => 'Узнать больше',
+            )
+        ); ?></p>
 
 <?php $this->endWidget(); ?>
 

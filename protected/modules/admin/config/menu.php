@@ -17,6 +17,10 @@ if (Yii::app()->user->isGuest) {
             'url' => ['/admin/lakes/index'],
         ],
         [
+            'label' => 'Список населенных пунктов',
+            'url' => ['/admin/region/admin'],
+        ],
+        [
             'label' => 'Типы водных ресурсов',
             'url' => ['/admin/waterObject/admin'],
         ],

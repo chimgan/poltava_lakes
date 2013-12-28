@@ -29,14 +29,12 @@ class Region extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('title, create_date', 'required'),
-			array('root_id', 'numerical', 'integerOnly'=>true),
-			array('title', 'length', 'max'=>100),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, root_id, title, create_date', 'safe', 'on'=>'search'),
-		);
+		return [
+			['title, create_date', 'required'],
+			['root_id', 'numerical', 'integerOnly' => true],
+			['title', 'length', 'max' => 100],
+			['id, root_id, title, create_date', 'safe', 'on' => 'search'],
+		];
 	}
 
 	/**
@@ -46,9 +44,10 @@ class Region extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'lakes' => array(self::HAS_MANY, 'Lake', 'region_id'),
-		);
+		return [
+			'lakes' => [self::HAS_MANY, 'Lake', 'region_id'],
+			'center' => [self::BELONGS_TO, 'Region', 'root_id'],
+		];
 	}
 
 	/**
@@ -56,12 +55,12 @@ class Region extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
-			'id' => 'ID',
-			'root_id' => 'Root',
-			'title' => 'Title',
-			'create_date' => 'Create Date',
-		);
+		return [
+			'id' => 'Порядковый номер',
+			'root_id' => 'Райцентр',
+			'title' => 'Населенный пункт',
+			'create_date' => 'Дата созлания',
+        ];
 	}
 
 	/**
@@ -78,18 +77,16 @@ class Region extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		$criteria = new CDbCriteria;
 
-		$criteria=new CDbCriteria;
+		$criteria->compare('id', $this->id);
+		$criteria->compare('root_id', $this->root_id);
+		$criteria->compare('title', $this->title, true);
+		$criteria->compare('create_date', $this->create_date, true);
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('root_id',$this->root_id);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('create_date',$this->create_date,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+		return new CActiveDataProvider($this, [
+			'criteria' => $criteria,
+		]);
 	}
 
 	/**
@@ -98,8 +95,24 @@ class Region extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Region the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        if (parent::beforeValidate()) {
+
+            if ($this->isNewRecord) {
+
+                $this->create_date = new CDbExpression('NOW()');
+            }
+            return true;
+        }
+        return false;
+    }
 }
