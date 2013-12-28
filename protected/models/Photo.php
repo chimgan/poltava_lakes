@@ -29,14 +29,12 @@ class Photo extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('lake_id, source, create_date', 'required'),
-			array('lake_id', 'numerical', 'integerOnly'=>true),
-			array('source', 'length', 'max'=>100),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, lake_id, source, create_date', 'safe', 'on'=>'search'),
-		);
+		return [
+			['lake_id, source, create_date', 'required'],
+			['lake_id', 'numerical', 'integerOnly' => true],
+			['source', 'length', 'max' => 100],
+			['id, lake_id, source, create_date', 'safe', 'on' => 'search'],
+		];
 	}
 
 	/**
@@ -46,9 +44,9 @@ class Photo extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'lake' => array(self::BELONGS_TO, 'Lake', 'lake_id'),
-		);
+		return [
+			'lake' => [self::BELONGS_TO, 'Lake', 'lake_id'],
+		];
 	}
 
 	/**
@@ -56,12 +54,12 @@ class Photo extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
-			'id' => 'ID',
-			'lake_id' => 'Lake',
-			'source' => 'Source',
-			'create_date' => 'Create Date',
-		);
+		return [
+			'id' => 'Порядковый номер',
+			'lake_id' => 'Название водного объекта',
+			'source' => 'Фотография',
+			'create_date' => 'Дата добавления',
+		];
 	}
 
 	/**
@@ -78,18 +76,16 @@ class Photo extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		$criteria = new CDbCriteria;
 
-		$criteria=new CDbCriteria;
+		$criteria->compare('id', $this->id);
+		$criteria->compare('lake_id', $this->lake_id);
+		$criteria->compare('source', $this->source, true);
+		$criteria->compare('create_date', $this->create_date, true);
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('lake_id',$this->lake_id);
-		$criteria->compare('source',$this->source,true);
-		$criteria->compare('create_date',$this->create_date,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+		return new CActiveDataProvider($this, [
+			'criteria' => $criteria,
+		]);
 	}
 
 	/**
@@ -98,8 +94,24 @@ class Photo extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Photo the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        if (parent::beforeValidate()) {
+
+            if ($this->isNewRecord) {
+
+                $this->create_date = new CDbExpression('NOW()');
+            }
+            return true;
+        }
+        return false;
+    }
 }

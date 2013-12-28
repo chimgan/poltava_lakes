@@ -37,16 +37,14 @@ class Lake extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array(
-			array('title, create_date', 'required'),
-			array('water_object_id, region_id, rent', 'numerical', 'integerOnly'=>true),
-			array('title', 'length', 'max'=>255),
-			array('lat, long, area', 'length', 'max'=>100),
-			array('description', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, water_object_id, region_id, title, description, lat, long, area, rent, create_date', 'safe', 'on'=>'search'),
-		);
+		return [
+			['water_object_id, region_id, title, lat, long, area, create_date', 'required'],
+			['water_object_id, region_id, rent', 'numerical', 'integerOnly' => true],
+			['title', 'length', 'max' => 255],
+			['lat, long, area', 'length', 'max' => 100],
+			['description', 'safe'],
+			['id, water_object_id, region_id, title, description, lat, long, area, rent, create_date', 'safe', 'on' => 'search'],
+		];
 	}
 
 	/**
@@ -56,11 +54,11 @@ class Lake extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
-			'waterObject' => array(self::BELONGS_TO, 'WaterObject', 'water_object_id'),
-			'photos' => array(self::HAS_MANY, 'Photo', 'lake_id'),
-		);
+		return [
+			'region' => [self::BELONGS_TO, 'Region', 'region_id'],
+			'waterObject' => [self::BELONGS_TO, 'WaterObject', 'water_object_id'],
+			'photos' => [self::HAS_MANY, 'Photo', 'lake_id'],
+		];
 	}
 
 	/**
@@ -68,18 +66,18 @@ class Lake extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
-			'id' => 'ID',
-			'water_object_id' => 'Water Object',
-			'region_id' => 'Region',
-			'title' => 'Title',
-			'description' => 'Description',
-			'lat' => 'Lat',
-			'long' => 'Long',
-			'area' => 'Area',
-			'rent' => 'Rent',
-			'create_date' => 'Create Date',
-		);
+		return [
+			'id' => 'Порядковый номер',
+			'water_object_id' => 'Тип водного объекта',
+			'region_id' => 'Населенный пункт',
+			'title' => 'Название',
+			'description' => 'Описание',
+			'lat' => 'Долгота',
+			'long' => 'Широта',
+			'area' => 'Площадь',
+			'rent' => 'Аренда',
+			'create_date' => 'Дата добавления',
+		];
 	}
 
 	/**
@@ -96,24 +94,22 @@ class Lake extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		$criteria = new CDbCriteria;
 
-		$criteria=new CDbCriteria;
+		$criteria->compare('id', $this->id);
+		$criteria->compare('water_object_id', $this->water_object_id);
+		$criteria->compare('region_id', $this->region_id);
+		$criteria->compare('title', $this->title, true);
+		$criteria->compare('description', $this->description, true);
+		$criteria->compare('lat', $this->lat, true);
+		$criteria->compare('long', $this->long, true);
+		$criteria->compare('area', $this->area, true);
+		$criteria->compare('rent', $this->rent);
+		$criteria->compare('create_date', $this->create_date, true);
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('water_object_id',$this->water_object_id);
-		$criteria->compare('region_id',$this->region_id);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('lat',$this->lat,true);
-		$criteria->compare('long',$this->long,true);
-		$criteria->compare('area',$this->area,true);
-		$criteria->compare('rent',$this->rent);
-		$criteria->compare('create_date',$this->create_date,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+		return new CActiveDataProvider($this, [
+			'criteria' => $criteria,
+		]);
 	}
 
 	/**
@@ -122,8 +118,24 @@ class Lake extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Lake the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        if (parent::beforeValidate()) {
+
+            if ($this->isNewRecord) {
+
+                $this->create_date = new CDbExpression('NOW()');
+            }
+            return true;
+        }
+        return false;
+    }
 }

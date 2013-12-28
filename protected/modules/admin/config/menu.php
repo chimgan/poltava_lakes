@@ -14,7 +14,7 @@ if (Yii::app()->user->isGuest) {
     $array = [
         [
             'label' => 'Водные ресурсы',
-            'url' => ['/admin/lakes/index'],
+            'url' => ['/admin/lake/admin'],
         ],
         [
             'label' => 'Список населенных пунктов',
