@@ -22,6 +22,9 @@
  */
 class Lake extends CActiveRecord
 {
+    public $areaFrom;
+    public $areaTo;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -104,6 +107,18 @@ class Lake extends CActiveRecord
 		$criteria->compare('lat', $this->lat, true);
 		$criteria->compare('long', $this->long, true);
 		$criteria->compare('area', $this->area, true);
+        if (!empty($this->areaFrom) && !empty($this->areaTo)) {
+
+            $criteria->addBetweenCondition('area', $this->areaFrom, $this->areaTo);
+        }
+        if (!empty($this->areaFrom) && empty($this->areaTo)) {
+
+            $criteria->addCondition('area > ' . $this->areaFrom);
+        }
+        if (empty($this->areaFrom) && !empty($this->areaTo)) {
+
+            $criteria->addCondition('area < ' . $this->areaTo);
+        }
 		$criteria->compare('rent', $this->rent);
 		$criteria->compare('create_date', $this->create_date, true);
         $criteria->order = 'id DESC';

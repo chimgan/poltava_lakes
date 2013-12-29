@@ -11,6 +11,8 @@ return [
     'signin'  => 'admin/index/login',
     'signout' => 'admin/index/logout',
 
+    'lake/<id:\d+>' => 'site/lake',
+
     // Admin module
     'admin'                                         => 'admin/index/index',
     'admin/<controller:\w+>'                        => 'admin/<controller>/index',
